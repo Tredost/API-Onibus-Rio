@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, Response
 import requests
 from datetime import datetime
+import os
 import json
 
 app = Flask(__name__)
@@ -63,4 +64,6 @@ def dados_onibus():
         return jsonify({"erro": f"Erro na requisição à API da prefeitura: {str(e)}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
