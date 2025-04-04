@@ -24,6 +24,10 @@ def tratar_dado(dado):
         print(f"Erro ao tratar dado: {e}")
         return None
 
+@app.route("/", methods=["GET"])
+def index():
+    return "API de ônibus do RJ online 🚌💨 - by Tredost"
+
 @app.route("/onibus", methods=["GET"])
 def dados_onibus():
     url = "https://dados.mobilidade.rio/gps/sppo"
