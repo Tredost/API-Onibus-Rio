@@ -6,7 +6,7 @@ import json
 
 app = Flask(__name__)
 
-MAX_REGISTROS = 200 # tem q limitar pq a api da prefeitura manda 120mb e trava o chip de batata da n8n
+MAX_REGISTROS = 20 # tem q limitar pq a api da prefeitura manda 120mb e trava o chip de batata da n8n
 
 def tratar_dado(dado):
     try:
