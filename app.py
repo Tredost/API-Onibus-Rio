@@ -6,7 +6,9 @@ import json
 
 app = Flask(__name__)
 
-MAX_RESPONSE_SIZE_BYTES = 2 * 1024 * 1024  # tem q limitar a 2mb pq a api da prefeitura manda 120mb e trava o chip de batata da n8n
+MAX_RESPONSE_SIZE_BYTES = 400 * 1024  # tem q limitar a 1mb pq a api da prefeitura manda 120mb e trava o chip de batata da n8n
+
+MAX_REGISTROS = 2000
 
 def tratar_dado(dado):
     try:
@@ -38,11 +40,12 @@ def dados_onibus():
         dados = response.json()
 
         tratados = []
-        for onibus in dados:
+        for onibus in dados[:MAX_REGISTROS]:
             if float(onibus["velocidade"]) > 0:
                 item = tratar_dado(onibus)
                 if item:
                     tratados.append(item)
+
 
         # Ordenar do mais recente para o mais antigo
         tratados.sort(key=lambda x: x["datahora"], reverse=True)
