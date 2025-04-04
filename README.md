@@ -13,7 +13,7 @@ Por isso, desenvolvi essa **API intermediária leve**, ideal para consumo em aut
 - 🕒 Conversão de timestamps para formato legível.
 - ⚡ Cálculo de atraso de transmissão (diferença entre servidor e GPS).
 - 📦 Resposta com limite de tamanho (500 registros).
-- ⚙️ Hospedável gratuitamente via [Railway](https://railway.app/).
+- ⚙️ Hospedado gratuitamente via [Railway](https://railway.app/).
 
 ## 📡 Endpoints Disponíveis
 
