@@ -13,20 +13,32 @@ Por isso, desenvolvi essa **API intermediária leve**, ideal para consumo em aut
 - 🕒 Conversão de timestamps para formato legível.
 - ⚡ Cálculo de atraso de transmissão (diferença entre servidor e GPS).
 - 📦 Resposta com limite de tamanho (500 registros).
-- ⚙️ Hospedado gratuitamente via [Railway](https://railway.app/).
+- ⚙️ Hospedável gratuitamente via [Railway](https://railway.app/).
 
 ## 📡 Endpoints Disponíveis
 
 ### `GET /`
 
-- **Descrição:** Verifica se a API está online.
+- **Verifica se a API está online.** 
 - **Resposta:**
 ```json
-"API de ônibus do RJ online 🚌💨 - by Tredost"
+"API de ônibus otimizada do RJ online 🚌💨 - by Tredost"
 ```
-### `GET /onibus`
+### `GET /onibus_tratados`
 
-- **Descrição:** Retorna uma lista de ônibus em movimento no Rio de Janeiro, com dados tratados e resposta leve (máximo 500 registros).
+- **Retorna uma lista de ônibus em movimento no Rio de Janeiro, com dados tratados e resposta leve.**
+  
+- 📌 Filtra apenas ônibus com velocidade > 0.
+
+- 🧹 Padroniza as coordenadas GPS.
+
+- ⏱️ Converte timestamps para o formato YYYY-MM-DD HH:mm:ss.
+
+- ⌛ Calcula o atraso de transmissão (atraso_ms).
+
+- 📉 Ordena os registros do mais recente para o mais antigo.
+
+- 📦 Limita a resposta a 500 registros para não travar sistemas externos (como o N8N).
 - **Resposta:**
 ```json
 [
@@ -52,6 +64,36 @@ Por isso, desenvolvi essa **API intermediária leve**, ideal para consumo em aut
   }
 ]
 ```
+### `GET /onibus_bruto`
+
+- **Retorna uma lista de ônibus em movimento no Rio de Janeiro, com dados brutos mas com resposta leve.**
+  
+- 📦 Limita a resposta a 500 registros para não travar sistemas externos (como o N8N).
+- **Resposta:**
+```json
+[
+  {
+    "datahora": "1743815362000",
+    "datahoraenvio": "1743815363000",
+    "datahoraservidor": "1743815372000",
+    "latitude": "-22,92768",
+    "linha": "2383",
+    "longitude": "-43,57245",
+    "ordem": "D12132",
+    "velocidade": "0"
+  },
+  {
+    "datahora": "1743815362000",
+    "datahoraenvio": "1743815363000",
+    "datahoraservidor": "1743815372000",
+    "latitude": "-22,89687",
+    "linha": "2335",
+    "longitude": "-43,56097",
+    "ordem": "D12173",
+    "velocidade": "0"
+  }
+]
+```
 
 ## 🚀 Como usar localmente
 
@@ -60,5 +102,5 @@ git clone https://github.com/Tredost/API-Onibus-Rio.git
 cd API-Onibus-Rio
 pip install -r requirements.txt
 python app.py
-Acesse em http://localhost:5000/onibus.
+Acesse em http://localhost:5000/
 ```
