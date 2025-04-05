@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Response
+from flask import Flask, jsonify, Response, stream_with_context
 import requests
 from datetime import datetime
 import os
@@ -30,7 +30,34 @@ def tratar_dado(dado):
 def index():
     return "API de ônibus do RJ online 🚌💨 - by Tredost"
 
-@app.route("/onibus", methods=["GET"])
+@app.route("/onibus_bruto", methods=["GET"])
+def dados_onibus_bruto():
+    url = "https://dados.mobilidade.rio/gps/sppo"
+
+    try:
+        response = requests.get(url, stream=True)
+        response.raw.decode_content = True
+        response.raise_for_status()
+
+        registros = []
+        itens = ijson.items(response.raw, 'item')
+
+        for onibus in itens:
+            if onibus:
+                registros.append(onibus)
+
+            if len(registros) >= MAX_ITENS:
+                break
+
+        # ordenar e formatar datas
+        registros.sort(key=lambda x: x["datahora"], reverse=True)
+
+        return jsonify(registros)
+
+    except Exception as e:
+        return jsonify({"erro": f"Erro ao processar dados: {str(e)}"}), 500
+
+@app.route("/onibus_tratado", methods=["GET"])
 def dados_onibus():
     url = "https://dados.mobilidade.rio/gps/sppo"
 
