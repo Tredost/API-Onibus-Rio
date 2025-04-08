@@ -70,7 +70,7 @@ def dados_onibus():
         itens = ijson.items(response.raw, 'item')
 
         for onibus in itens:
-            if float(onibus.get("velocidade", 0)) > 0:
+            if float(onibus.get("velocidade", 0)) > 0 and onibus.get("linha") != "GARAGEM":
                 item = tratar_dado(onibus)
                 if item:
                     tratados.append(item)
