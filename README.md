@@ -4,7 +4,7 @@
 
 A API oficial da Prefeitura do Rio de Janeiro ([dados.mobilidade.rio/gps/sppo](https://dados.mobilidade.rio/gps/sppo)) retorna arquivos com **mais de 100MB**, o que **trava fluxos** e dificulta análises simples.
 
-Por isso, desenvolvi essa **API intermediária leve**, ideal para consumo em automações, dashboards e scripts.
+Por isso, desenvolvemos essa **API intermediária leve**, ideal para consumo em automações, dashboards e scripts.
 
 ### ✅ Funcionalidades
 
